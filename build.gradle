@@ -1,0 +1,59 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.0'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Spring Boot starters
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security' // Core Spring Security features
+
+	// Jakarta Validation (for @Valid and constraints like @NotBlank)
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+	implementation 'org.glassfish:jakarta.el:4.0.2' // Required for Hibernate Validator
+
+	// MySQL Connector
+	implementation 'mysql:mysql-connector-java:8.0.33'
+
+	// JWT dependencies for authentication
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' // For JSON serialization
+
+	// Spring Security additional modules
+	implementation 'org.springframework.security:spring-security-core' // Core security components
+	implementation 'org.springframework.security:spring-security-web' // Security filter chain
+	implementation 'org.springframework.security:spring-security-config' // Security configuration
+	implementation 'org.springframework.security:spring-security-crypto' // Password encoding utilities
+
+	// Lombok for boilerplate code reduction
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// DevTools for hot reload
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Testing dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test' // Security testing utilities
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
